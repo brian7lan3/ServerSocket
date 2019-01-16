@@ -23,16 +23,17 @@ namespace serverSocket
         {
             try
             {
+                //string hostname = Dns.GetHostName();
+                //IPAddress serverIP = Dns.Resolve(hostname).AddressList[0];
+
+
                 Socket serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-
                 IPAddress serverIP = IPAddress.Parse("127.0.0.1");
-
-#pragma warning disable CS0618 // 類型或成員已經過時
                 //IPAddress serverIP = Dns.Resolve("localhost").AddressList[0];
-#pragma warning restore CS0618 // 類型或成員已經過時
 
 
-                IPEndPoint serverhost = new IPEndPoint(serverIP, 80);
+                //IPEndPoint serverhost = new IPEndPoint(serverIP, 80);
+                TcpListener tcpListener = new TcpListener(serverIP, 80);
 
                 serverSocket.Bind(serverhost);
 
