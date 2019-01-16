@@ -27,18 +27,32 @@ namespace serverSocket
                 //IPAddress serverIP = Dns.Resolve(hostname).AddressList[0];
 
 
-                Socket serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                IPAddress serverIP = IPAddress.Parse("127.0.0.1");
+                //Socket serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                //IPAddress serverIP = IPAddress.Parse("127.0.0.1");
                 //IPAddress serverIP = Dns.Resolve("localhost").AddressList[0];
 
 
                 //IPEndPoint serverhost = new IPEndPoint(serverIP, 80);
-                TcpListener tcpListener = new TcpListener(serverIP, 80);
+                //TcpListener tcpListener = new TcpListener(serverIP, 80);
 
-                serverSocket.Bind(serverhost);
+                //serverSocket.Bind(serverhost);
 
                 //serverSocket.Listen(int backlog);
-                serverSocket.Listen(10);    //其中參數 backlog 設定伺服端最大用戶連線數，可設定為 int.MaxValue 
+                //serverSocket.Listen(10);    //其中參數 backlog 設定伺服端最大用戶連線數，可設定為 int.MaxValue 
+
+
+
+
+                //指定伺服端 IP Address 與通訊埠
+                IPAddress serverIP = IPAddress.Parse("127.0.0.1");
+                //IPAddress serverIP = Dns.Resolve("localhost").AddressList[0];
+
+                //建立伺服端 TcpListener
+                TcpListener tcpListener = new TcpListener(serverIP, 80);
+
+                //等候用戶連線
+                tcpListener.Start();
+
             }
             catch (SocketException ex)
             {
