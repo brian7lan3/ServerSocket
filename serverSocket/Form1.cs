@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading;
 
 namespace serverSocket
 {
@@ -74,6 +75,12 @@ namespace serverSocket
 
                 serverSocket.Listen(10);
 
+                ListenClient lc = new ListenClient(serverSocket);
+
+                ThreadStart serverThreadStart = new ThreadStart(lc.ServerThreadProc);
+
+                Thread serverthread = new Thread(serverThreadStart);
+
                 while (true)
                 {
                     try
@@ -87,6 +94,8 @@ namespace serverSocket
 
                     }
                 }
+
+                
             }
             catch (Exception ex)
             {
@@ -97,6 +106,34 @@ namespace serverSocket
         private void button1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        public class ListenClient
+        {
+            private System.Net.Sockets.Socket serverSocket;
+            private System.Net.Sockets.Socket clientSocket;
+
+            //建構函式
+            public ListenClient(Socket ServerSocket)
+            {
+                this.serverSocket = serverSocket;
+            }
+        }
+
+
+        public void ServerThreadProc()
+        {
+            while (true)
+            {
+                try
+                {
+                    clientSocket = serverSocket.Accept();
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
         }
     }
 }
