@@ -21,6 +21,7 @@ namespace serverSocket
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            /*
             try
             {
                 //string hostname = Dns.GetHostName();
@@ -55,6 +56,39 @@ namespace serverSocket
 
             }
             catch (SocketException ex)
+            {
+
+            }
+            */
+
+
+            try
+            {
+                Socket serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+
+                IPAddress serverIP = IPAddress.Parse("127.0.0.1");
+
+                IPEndPoint serverhost = new IPEndPoint(serverIP, 80);
+
+                serverSocket.Bind(serverhost);
+
+                serverSocket.Listen(10);
+
+                while (true)
+                {
+                    try
+                    {
+                        //處理用戶端連線
+                        Socket clientSocket = serverSocket.Accept();
+
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
+                }
+            }
+            catch (Exception ex)
             {
 
             }
